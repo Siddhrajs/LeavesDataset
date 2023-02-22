@@ -1,10 +1,10 @@
 # LeavesDataset
 
-##I. INTRODUCTION
+## INTRODUCTION
 
 Automated leaf segmentation is basic for many agriculture-related projects like disease detection from plant leaf, leaf classification or identification etc. But at the same time, it is an extremely difficult part. Due to variability in colour, shape and size of leaves, it becomes extremely difficult to have a general method for all species of plants. So here we have focused on only one species. The aim of this report is to get leaves from an image as precise as possible rather than getting all leaves present in the image. Special care has been taken to identify background as precisely as possible. Here part of the image containing plant is known as foreground while the remaining part is known as background. In this report, we have discussed leaf segmentation for specific plant i.e. brinjal plant.
 
-##II. DATA
+## DATA
 
 We have used images of eggplants captured from 13MP
 smartphone camera with 1.34-micron pixel size and an f/2.2
@@ -19,7 +19,7 @@ which effect size, shape and colour of the plant. Total of 100
 images of eggplants is used to extract leaves from each image.
 Each eggplant image contains on an average 15 leaves.
 
-##III. METHODOLOGY AND APPROACH
+## METHODOLOGY AND APPROACH
 Here first two steps extract the foreground from an image.
 As shown in figure 1 in the first step we are forming a
 cluster of pixels which have the same characteristic using
@@ -47,7 +47,7 @@ be much smaller in size than that of leaves.
 
 [[Add Image Here]]
 
-####A. Simple linear iterative clustering (SLIC)
+#### Simple linear iterative clustering (SLIC)
 
 Superpixels are a group of pixels with the same character-
 istics. Superpixel segmentation is local clustering of pixels in
@@ -145,7 +145,7 @@ The time complexity of this algorithm is O(NI), where I
 represent a number of iteration, but as I is always less than
 15-time complexity of this algorithm is O(N).
 
-####B. Extract foreground
+#### Extract foreground
 Eggplants are green in colour, so to extract foreground all
 superpixels with green mean colour are extracted. In LAB
 colour space value less than -5 of a coordinate defines the
@@ -158,14 +158,14 @@ can be identified as background. But our main focus is to not
 identify background as foreground. Figure 7 shows extracted
 foreground for particular image.
 
-####C. Edge detection
+#### Edge detection
 After extracting foreground edge of leaves are detected
 using canny edge detection. Canny edge detection removes
 noise using the Gaussian filter. It is immune to a noisy
 environment. It is a well-defined method and offers reliable
 detection. Figure 8 shows detected edges on foreground figure
 
-####D. Leaf mask
+#### Leaf mask
 Simple region growing approach is used to get a leaf mask.
 The seed for region growing is selected by simple iteration
 with condition that if the pixel is in the foreground and not an
@@ -173,13 +173,13 @@ edge. This leaf mask is then corrected if there are any holes
 in it due to disease or dryness. Figure 9 shows a leaf mask
 before correction.
 
-####E. Leaf extraction
+#### Leaf extraction
 At last all superpixels which fall in the region of this leaf
 mask are extracted. These superpixels collectively form a leaf.
 Figure 10 shows extracted leaf of leaf mask shown in figure
 9
 
-##IV. RESULT AND CONCLUSION
+## RESULT AND CONCLUSION
 Results of this method depend on different parameters like
 the number of segments, Gaussian filter, a component values
 for the green colour, size of mask allowed etc.
